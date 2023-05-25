@@ -19,7 +19,7 @@ async def xrange(start: str, end:str):
         datetime_obj = datetime.fromisoformat(x[i])  # Convert string to datetime object
         
         if start <= datetime_obj <= end:
-            X_list.append(datetime_obj.strftime('%H:%M:%S'))
+            X_list.append(x[i])
             Y_list.append(y[i])
     return {"X":X_list, "Y":Y_list}
 
