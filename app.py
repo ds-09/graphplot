@@ -8,18 +8,19 @@ with open('plot.json','r') as f:
 
 @app.get('/range/{start}/{end}')
 
-async def xrange(start: date, end: date):
+async def xrange(start: str, end:str):
+    start=datetime.fromisoformat(start)
+    end=datetime.fromisoformat(end)
     x= fileData["X"]
     y= fileData["Y"]
     X_list=[]
     Y_list=[]
     for i in range(len(x)):
-        datetime_obj = datetime.strptime(x[i], "%Y-%m-%dT%H:%M:%S").date()  # Convert string to date object
-        date_obj = datetime_obj.date()
-        if start < date_obj < end:
-            X_list.append(x[i])
+        datetime_obj = datetime.fromisoformat(x[i])  # Convert string to datetime object
+        
+        if start <= datetime_obj <= end:
+            X_list.append(datetime_obj.strftime('%H:%M:%S'))
             Y_list.append(y[i])
-           
     return {"X":X_list, "Y":Y_list}
 
 
