@@ -3,14 +3,8 @@ import json
 from datetime import datetime,date
 
 app=FastAPI(debug=True)
-
-fileData=None
-
-@app.post('/data')
-async def upload(f: UploadFile= File()):
-    global fileData
-    fileData=json.load(f.file)
-    return {"message":"File uploaded successfully."}
+with open('plot.json','r') as f:
+    fileData= json.load(f)
 
 @app.get('/range/{start}/{end}')
 
